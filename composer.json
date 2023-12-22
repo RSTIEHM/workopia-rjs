@@ -1,0 +1,17 @@
+{
+    "name": "richstiehm/workopia-php",
+    "description": "Job Listing",
+    "authors": [
+        {
+            "name": "Rich Stiehm",
+            "email": "richardstiehm@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "Framework/",
+            "App\\": "App/"
+        }
+    }
+
+}

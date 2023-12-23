@@ -3,7 +3,7 @@
 namespace Framework;
 
 use App\Controllers\ErrorController;
-// use Error;
+
 
 class Router
 {
@@ -20,9 +20,13 @@ class Router
 
     public function registerRoute($method, $uri, $action)
     {
-
+        // inspect($method);
+        // inspect($uri);
+        // inspect($action);
+        // Assign variables as if they were an array
         list($controller, $controllerMethod) = explode('@', $action);
-
+        // inspect($controller);
+        // inspect($controllerMethod);
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,
@@ -95,10 +99,10 @@ class Router
         foreach ($this->routes as $route) {
             // Split the URI into segments
             $uriSegments = explode('/', trim($uri, '/'));
+
             // Split the route URI into segments
             $routeSegments = explode('/', trim($route['uri'], '/'));
-
-            // Check if the number of segments matches
+            // Check if the number of segments matches && METHOD
             if (count($uriSegments) === count($routeSegments) && strtoupper($route['method']) === $requestMethod) {
                 $params = [];
 
@@ -117,7 +121,7 @@ class Router
                 }
 
                 if ($match) {
-                    // Extract controller and method from route
+                    // MATCH IS TRUE Extract controller and method from route
                     $controller = 'App\\Controllers\\' . $route['controller'];
                     $controllerMethod = $route['controllerMethod'];
 

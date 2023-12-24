@@ -96,6 +96,11 @@ class Router
     public function route($uri)
     {
         $requestMethod = $_SERVER['REQUEST_METHOD'];
+        // CHECK FOR METHOD INPUT ====================
+        if ($requestMethod === 'POST' && isset($_POST['_method'])) {
+            // OVERIDE REQEUST
+            $requestMethod = strtoupper($_POST["_method"]);
+        }
         foreach ($this->routes as $route) {
             // Split the URI into segments
             $uriSegments = explode('/', trim($uri, '/'));

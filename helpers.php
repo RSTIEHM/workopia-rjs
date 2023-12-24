@@ -96,3 +96,15 @@ function formatSalary($salary)
 {
     return '$'   . number_format(floatval($salary));
 }
+
+// SANITIZE DATA RETURN STRING
+
+function sanitize($dirty)
+{
+    return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+}
+
+function redirect($url)
+{
+    header("Location: {$url}");
+}

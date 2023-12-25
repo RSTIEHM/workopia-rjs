@@ -20,13 +20,10 @@ class Router
 
     public function registerRoute($method, $uri, $action)
     {
-        // inspect($method);
-        // inspect($uri);
-        // inspect($action);
+
         // Assign variables as if they were an array
         list($controller, $controllerMethod) = explode('@', $action);
-        // inspect($controller);
-        // inspect($controllerMethod);
+
         $this->routes[] = [
             'method' => $method,
             'uri' => $uri,

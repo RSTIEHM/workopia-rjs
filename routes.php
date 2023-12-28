@@ -1,12 +1,10 @@
 <?php
 
-use App\Controllers\UserController;
-
-$router->get("/", "HomeController@index");
-$router->get("/listings", "ListingController@index");
+$router->get("/", "HomeController@index", ["guest"]);
+$router->get("/listings", "ListingController@index", ["guest"]);
 $router->get("/listings/create", "ListingController@create", ["auth"]);
 $router->get("/listings/edit/{id}", "ListingController@edit",  ["auth"]);
-$router->get("/listings/{id}", "ListingController@show");
+$router->get("/listings/{id}", "ListingController@show", ["guest"]);
 
 
 $router->post("/listings", "ListingController@store",  ["auth"]);
@@ -15,7 +13,7 @@ $router->delete("/listings/delete/{id}", "ListingController@destroy",  ["auth"])
 
 
 
-// AUTH ==========================
+// ========================= AUTH ==========================
 $router->get("/auth/register", "UserController@create", ["guest"]);
 $router->get("/auth/login", "UserController@login", ["guest"]);
 

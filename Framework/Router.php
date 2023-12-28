@@ -9,31 +9,7 @@ class Router
 {
     protected $routes = [];
 
-    /**
-     * Add A new Route
-     * @param string $method
-     * @param string $uri
-     * @param string $action 
-     * @param array $middleware
-     * @return void 
-     * 
-     */
 
-    // =====================================
-    public function registerRoute($method, $uri, $action, $middleware = [])
-    {
-
-        // Assign variables as if they were an array
-        list($controller, $controllerMethod) = explode('@', $action);
-
-        $this->routes[] = [
-            'method' => $method,
-            'uri' => $uri,
-            'controller' => $controller,
-            'controllerMethod' => $controllerMethod,
-            'middleware' => $middleware
-        ];
-    }
 
     /**
      * Add a GET ROUTE 
@@ -94,8 +70,40 @@ class Router
         $this->registerRoute('DELETE', $uri, $controller,  $middleware);
     }
 
+
+    // =====================================
+    // ==========REGISTER ALL ROUTES========
     // =====================================
 
+    /**
+     * REGISTER ALL ROUTES from router.php
+     * @param string $method
+     * @param string $uri
+     * @param string $action 
+     * @param array $middleware
+     * @return void 
+     * 
+     */
+
+    // =====================================
+    public function registerRoute($method, $uri, $action, $middleware = [])
+    {
+
+        // Assign variables as if they were an array 
+        // SPLIT APART HomeController@index = "HomeContoller" && "index"
+        list($controller, $controllerMethod) = explode('@', $action);
+
+        // THIS IS THE DICTIONARY ROUTE OBJECT
+        // IT WILL CONTAIN ALL AVAILABLE ROUTES FROM routes.php 
+        // and store in class property $this->routes
+        $this->routes[] = [
+            'method' => $method,
+            'uri' => $uri,
+            'controller' => $controller,
+            'controllerMethod' => $controllerMethod,
+            'middleware' => $middleware
+        ];
+    }
 
 
     /**

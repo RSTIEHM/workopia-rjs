@@ -13,8 +13,9 @@ $router = new Router();
 // REGISTER ROUTES ==================
 $routes = require basePath('routes.php');
 
-// GET CURRENT URI & METHOD ======ENTRY POINT=============
+// ============= GET CURRENT URI & METHOD  ==============
+// ==============     ENTRY POINT  ======================
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-// inspectAndDie($uri);
+// $uri example passed to $router->route(#uri) =  /listings/21 || /listings etc....
 
 $router->route($uri);

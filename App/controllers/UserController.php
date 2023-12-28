@@ -28,17 +28,69 @@ class UserController
         redirect('/');
     }
 
+    // ========================================
+
+    public function authenticate()
+    {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $errors = [];
+        if (!Validation::email($email)) {
+            $errors['email'] = "Please enter a valid email address";
+        }
+        if (!Validation::string($password, 6, 50)) {
+            $errors['password'] = "Password must be at least 6 characters";
+        }
+        if (!empty($errors)) {
+            loadView('users/login', [
+                'errors' => $errors
+            ]);
+            exit;
+        }
+
+        // CHECK IF EMAIL ALREADY EXISTS
+        $params = [
+            'email' => $email
+        ];
+
+        $user = $this->db->query("SELECT * FROM users WHERE email = :email", $params)->fetch();
+
+        if (!$user || !password_verify($password, $user->password)) {
+            $errors['error'] = "Incorrect credentials, Try Again Spanky!";
+            loadView("users/login", [
+                'errors' => $errors
+            ]);
+            exit;
+        }
+
+        Session::set("user", [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'city' => $user->city,
+            'state' => $user->state
+        ]);
+        redirect("/");
+    }
+
+    // ===================================
+
+
+
     public function create()
     {
         loadView('users/create');
     }
+
+
+
 
     public function store()
     {
         $name = $_POST["name"];
         $email = $_POST["email"];
         $city = $_POST["city"];
-        $state = $_POST["password"];
+        $state = $_POST["state"];
         $password = $_POST["password"];
         $password_confirm = $_POST["password_confirmation"];
         $errors = [];
@@ -100,6 +152,5 @@ class UserController
             'state' => $state
         ]);
         redirect("/");
-        // inspectAndDie($_POST);
     }
 }
